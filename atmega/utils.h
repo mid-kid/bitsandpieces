@@ -16,11 +16,11 @@
 
 #define LOW 0
 #define HIGH 1
-#define OUT 1
-#define IN 0
+#define OUTPUT 1
+#define INPUT 0
 
-#define _pinsetup(port, pin, x) if (x) { sbi(DDR ## port, DD ## port ## pin); } else { cbi(DDR ## port, DD ## port ## pin); }
-#define pinsetup(pin, x) _pinsetup(pin, x)
+#define _pinmode(port, pin, x) if (x) { sbi(DDR ## port, DD ## port ## pin); } else { cbi(DDR ## port, DD ## port ## pin); }
+#define pinmode(pin, x) _pinmode(pin, x)
 
 #define _writepin(port, pin, x) if (x) { sbi(PORT ## port, PORT ## port ## pin); } else { cbi(PORT ## port, PORT ## port ## pin); }
 #define writepin(pin, x) _writepin(pin, x)
