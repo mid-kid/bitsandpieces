@@ -116,9 +116,9 @@ static int stdio_serial_getchar(__attribute__((unused)) FILE *stream)
 { return serial_getchar(); }
 static FILE serial = FDEV_SETUP_STREAM(stdio_serial_putchar, stdio_serial_getchar, _FDEV_SETUP_RW);
 
-int serial_available(void)
+unsigned serial_available(void)
 {
-    return ((unsigned int)(SERIAL_BUFFER_SIZE + serial_rx.head - serial_rx.tail)) % SERIAL_BUFFER_SIZE;
+    return ((unsigned)(SERIAL_BUFFER_SIZE + serial_rx.head - serial_rx.tail)) % SERIAL_BUFFER_SIZE;
 }
 
 void serial_drain(void)
@@ -137,9 +137,6 @@ void serial_init_config(const unsigned long bauds, const uint8_t config)
     UCSR0A = _BV(U2X0);  // Double speed
     UCSR0B = _BV(RXEN0) | _BV(TXEN0) | _BV(RXCIE0);  // Enable it and the receive interrupt
     UCSR0C = config;
-
-    // Make sure interrupts are enabled
-    sei();
 
     // Setup stdio streams
     stdout = stderr = stdin = &serial;

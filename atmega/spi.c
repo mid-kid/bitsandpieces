@@ -6,9 +6,7 @@
 #include "utils.h"
 #include "pins.h"
 
-// NOTE: This module just supports sending through hardware SPI right now.
-
-void spi_init_master(const int divider)
+void spi_init(const enum spi_divider divider)
 {
     DDRB |= pin(PIN_SPI_SS) | pin(PIN_SPI_MOSI) | pin(PIN_SPI_SCK);  // Outputs
     DDRB &= ~pin(PIN_SPI_MISO);  // Inputs
@@ -25,9 +23,10 @@ void spi_off(void)
     SPSR = 1;
 }
 
-void spi_transfer(const uint8_t data)
+uint8_t spi_transfer(const uint8_t data)
 {
     SPDR = data;
     __asm__ volatile ("nop");
-    while (!(SPSR & _BV(SPIF)));
+    while (!(SPSR & _BV(SPIF))) __asm__ volatile ("nop");
+    return SPDR;
 }

@@ -2,17 +2,19 @@
 
 #include <stdint.h>
 
-#define SPI_DIV4 0
-#define SPI_DIV16 1
-#define SPI_DIV64 2
-#define SPI_DIV128 3
+enum spi_divider {
+    SPI_DIV4,
+    SPI_DIV16,
+    SPI_DIV64,
+    SPI_DIV128,
 
-// Double speed SPI
-#define SPI_DIV2 4
-#define SPI_DIV8 5
-#define SPI_DIV32 6
-#define SPI_DIV64_2 7
+    // Double speed
+    SPI_DIV2,
+    SPI_DIV8,
+    SPI_DIV32,
+    SPI_DIV64_2
+};
 
-void spi_init_master(const int divider);
+void spi_init(const enum spi_divider divider);
 void spi_off(void);
-void spi_transfer(const uint8_t data);
+uint8_t spi_transfer(const uint8_t data);

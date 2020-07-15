@@ -2,19 +2,57 @@
 
 #include "config.h"
 
+#ifdef INT_SSP
 void isr_ssp(void);
+#endif
+
+#ifdef INT_TX
 void isr_tx(void);
+#endif
+
+#ifdef INT_RC
 void isr_rc(void);
+#endif
+
+#ifdef INT_TMR2
 void isr_tmr2(void);
+#endif
+
+#ifdef INT_TMR1
 void isr_tmr1(void);
+#endif
+
+#ifdef INT_C1
 void isr_c1(void);
+#endif
+
+#ifdef INT_C2
 void isr_c2(void);
+#endif
+
+#ifdef INT_AD
 void isr_ad(void);
+#endif
+
+#ifdef INT_EE
 void isr_ee(void);
+#endif
+
+#ifdef INT_OSF
 void isr_osf(void);
+#endif
+
+#ifdef INT_CCP1
 void isr_ccp1(void);
+#endif
+
+#ifdef INT_T0
 void isr_t0(void);
+#endif
+
+#ifdef INT_RAB
 void isr_rab(void);
+#endif
 
 static void interrupt(void) __interrupt
 {

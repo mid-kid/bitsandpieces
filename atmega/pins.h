@@ -1,7 +1,6 @@
 #pragma once
 
 // Pin mappings as on the arduino board
-
 #define PIN_D0 D, 0
 #define PIN_D1 D, 1
 #define PIN_D2 D, 2
