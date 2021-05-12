@@ -50,15 +50,17 @@ class PNGWriter():
                 packed.append(0)  # No filter
             if self.color in [COLOR_RGB, COLOR_GRAYA, COLOR_RGBA]:
                 for x in pixel:
-                    value |= (x & ((1 << self.depth) - 1)) << bits
+                    value <<= self.depth
+                    value |= x & ((1 << self.depth) - 1)
                     bits += self.depth
             else:
-                value |= (pixel & ((1 << self.depth) - 1)) << bits
+                value <<= self.depth
+                value |= pixel & ((1 << self.depth) - 1)
                 bits += self.depth
             while bits >= 8:
-                packed.append(value & 0xFF)
-                value >>= 8
                 bits -= 8
+                packed.append((value >> bits) & 0xFF)
+                value &= (1 << bits) - 1
         if bits:
             packed.append(value << (8 - bits))
 
