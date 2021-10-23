@@ -1,4 +1,4 @@
-void hex_read(const unsigned char *buf, const unsigned len)
+void hex_dump(const unsigned char *buf, const unsigned len)
 {
     for (unsigned i = 0; i < len; i += 0x10) {
         printf("   ");
@@ -9,7 +9,7 @@ void hex_read(const unsigned char *buf, const unsigned len)
     }
 }
 
-unsigned hex_dump(unsigned char *buf, const unsigned len, const char *str)
+unsigned hex_read(unsigned char *buf, const unsigned len, const char *str)
 {
     unsigned cur = 0;
     while (*str) {
