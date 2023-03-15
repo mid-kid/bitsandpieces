@@ -107,7 +107,7 @@ inline unsigned char serial_getchar_inline(void)
 
 unsigned char serial_getchar(void) { return serial_getchar_inline(); }
 
-static int stdio_serial_putchar(const char c, __attribute__((unused)) FILE *stream)
+static int stdio_serial_putchar(char c, __attribute__((unused)) FILE *stream)
 { serial_putchar(c); return 1; }
 static int stdio_serial_getchar(__attribute__((unused)) FILE *stream)
 { return serial_getchar(); }
