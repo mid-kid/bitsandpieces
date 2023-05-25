@@ -6,8 +6,6 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-#include "utils.h"
-
 #define SERIAL_BUFFER_SIZE 0x40
 
 struct serial_buffer {
@@ -53,7 +51,7 @@ static void serial_transmit(void)
     UDR0 = serial_buffer_get(&serial_tx);
 
     // If we've sent everything, disable the interrupt
-    if (serial_buffer_isempty(&serial_tx)) cbi(UCSR0B, UDRIE0);
+    if (serial_buffer_isempty(&serial_tx)) UCSR0B &= ~_BV(UDRIE0);
 }
 
 static void serial_receive(void)
@@ -90,7 +88,7 @@ inline void serial_putchar_inline(unsigned char c)
     serial_buffer_put(&serial_tx, c);
 
     // Enable the interrupt to transmit as soon as we can
-    sbi(UCSR0B, UDRIE0);
+    UCSR0B |= _BV(UDRIE0);
 }
 
 void serial_putchar(unsigned char c) { return serial_putchar_inline(c); }

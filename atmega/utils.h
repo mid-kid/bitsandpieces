@@ -9,7 +9,6 @@
 #define sbi(sfr, bit) (sfr |= _BV(bit))
 
 // Definitions for handling pins
-
 #define _pin(port, pin) PORT ## port ## pin
 #define _port(port, pin) PORT ## port
 #define pin(pin) _BV(_pin(pin))

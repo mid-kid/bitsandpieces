@@ -3,7 +3,7 @@ name := $(notdir $(PWD))
 dir_source := source
 dir_build := build
 
-TARGET_ARCH := -mmcu=atmega328p
+TARGET_ARCH := -mmcu=atmega328p -DF_CPU=16000000L
 TARGET_AVRDUDE := -patmega328p -carduino
 SERIAL := /dev/ttyACM0
 
@@ -12,9 +12,9 @@ OBJCOPY := avr-objcopy
 OBJDUMP := avr-objdump
 AVRDUDE := avrdude
 
-OPTIM := -Os -g -fdata-sections -ffunction-sections -flto -fuse-linker-plugin -fshort-enums
-CFLAGS := $(OPTIM) -Wall -Wextra -std=c11 -DF_CPU=16000000L
-LDFLAGS := $(OPTIM) -Wl,--gc-sections -Wl,--print-gc-sections
+OPTIM := -Os -g -fdata-sections -ffunction-sections -flto -fuse-linker-plugin -fshort-enums -Wl,--gc-sections -Wl,--print-gc-sections
+CFLAGS := $(OPTIM) -Wall -Wextra -std=c11
+LDFLAGS := $(OPTIM)
 
 rwildcard = $(foreach d,$(wildcard $1/*),$(filter $2,$d) $(call rwildcard,$d,$2))
 objects := $(patsubst $(dir_source)/%.c,$(dir_build)/%.o,$(call rwildcard,$(dir_source),%.c))
