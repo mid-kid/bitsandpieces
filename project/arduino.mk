@@ -4,6 +4,7 @@ dir_source := source
 dir_build := build
 
 TARGET_ARCH := -mmcu=atmega328p -DF_CPU=16000000L
+TARGET_MACH := -mmcu=atmega328p -DF_CPU=16000000L
 TARGET_AVRDUDE := -patmega328p -carduino
 SERIAL := /dev/ttyACM0
 
