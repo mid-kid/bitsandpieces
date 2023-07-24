@@ -9,6 +9,7 @@
 
 char *tctoutf(const _TCHAR *str)
 {
+    if (!str) return NULL;
 #ifdef _UNICODE
     size_t size = WideCharToMultiByte(CP_UTF8, 0, str, -1, NULL, 0, NULL, NULL);
     if (!size) return NULL;
@@ -23,6 +24,7 @@ char *tctoutf(const _TCHAR *str)
 
 _TCHAR *utftotc(const char *str)
 {
+    if (!str) return NULL;
 #ifdef _UNICODE
     size_t size = MultiByteToWideChar(CP_UTF8, 0, str, -1, NULL, 0);
     if (!size) return NULL;
