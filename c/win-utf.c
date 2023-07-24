@@ -1,12 +1,11 @@
-#include "win-utf.h"
-
-#include <stdlib.h>
-#include <string.h>
-
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
+#include "win-utf.h"
+
+#include <stdlib.h>
+#include <string.h>
 
 char *tctoutf(const _TCHAR *str)
 {

@@ -8,15 +8,17 @@
 
 #include "win-utf.h"
 
+#ifdef _WIN32
+#include <tchar.h>
+#else
+#define _T(...) __VA_ARGS__
+#define _tmain main
+#endif
+
 #ifdef _UNICODE
 #define FMT_TS "%ls"
 #else
 #define FMT_TS "%s"
-#endif
-
-#ifndef _WIN32
-#define _T(...) __VA_ARGS__
-#define _tmain main
 #endif
 
 int _tmain(int argc, _TCHAR *argv[])
