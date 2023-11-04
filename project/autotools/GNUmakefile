@@ -1,25 +1,25 @@
 AHFILES := autoconf.h.in
 
-ACTARGETS := clean distclean
+BUILD := build
 
-.PHONY: all
-all: | build/Makefile
-	@$(MAKE) --no-print-directory -C build $(MAKECMDGOALS)
+.PHONY: $(BUILD)
+$(BUILD): | $(BUILD)/Makefile
+	+@$(MAKE) --no-print-directory -C $(BUILD) $(MAKECMDGOALS)
 
-.PHONY: $(ACTARGETS)
-$(ACTARGETS): all ;@:
+$(lastword $(MAKEFILE_LIST)): ;
+%:: $(BUILD) ;
 
 .PHONY: autoclean
 autoclean:
-	rm -rf build
+	rm -rf $(BUILD)
 	rm -rf build-aux m4
 	rm -rf autom4te.cache aclocal.m4
 	rm -f configure configure~ Makefile.in
 	rm -f $(AHFILES) $(addsuffix ~,$(AHFILES))
 
-build/Makefile: | configure Makefile.in
-	mkdir -p build
-	cd build && ../configure
+$(BUILD)/Makefile: | configure Makefile.in
+	mkdir -p $(BUILD)
+	cd $(BUILD) && ../configure
 
 configure: | configure.ac aclocal.m4
 	autoconf
@@ -31,5 +31,8 @@ $(AHFILES): | configure.ac aclocal.m4
 	autoheader
 
 aclocal.m4: | configure.ac
-	libtoolize
+	libtoolize -q
 	aclocal
+
+configure.ac: ;
+Makefile.am: ;
