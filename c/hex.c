@@ -1,19 +1,19 @@
-void hex_dump(const unsigned char *buf, const unsigned len)
+void hex_dump(const unsigned char *buf, unsigned size)
 {
-    for (unsigned i = 0; i < len; i += 0x10) {
+    for (unsigned i = 0; i < size; i += 0x10) {
         printf("   ");
-        for (unsigned x = i; x < i + 0x10 && x < len; x++)  {
+        for (unsigned x = i; x < i + 0x10 && x < size; x++)  {
             printf(" %02X", buf[x]);
         }
         printf("\n");
     }
 }
 
-unsigned hex_read(unsigned char *buf, const unsigned len, const char *str)
+unsigned hex_read(unsigned char *buf, unsigned size, const char *str)
 {
     unsigned cur = 0;
     while (*str) {
-        if (cur >= len) return 0;
+        if (cur >= size) return 0;
 
         if (*str == ' ') {
             str++;
