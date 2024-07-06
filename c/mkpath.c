@@ -3,12 +3,12 @@
 #include <errno.h>
 #include <sys/stat.h>
 
-#ifdef _WIN32
-#define PATH_DELIM "/\\"
-#define mkdir(path, mode) mkdir(path)
-#else
+#ifndef _WIN32
 #define PATH_DELIM "/"
 #define mkdir(path, mode) mkdir(path, mode)
+#else
+#define PATH_DELIM "/\\"
+#define mkdir(path, mode) mkdir(path)
 #endif
 
 static int _mkpath(char *path)
