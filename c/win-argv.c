@@ -25,7 +25,7 @@ static void str_resize(_TCHAR **str, size_t *max, size_t req)
 
 // Windows argv[] strings are passed as a whole, instead of being split up into
 // an array. This means that *we* have to make sure to quote our arguments, and
-// for some reason nobody every thought to make a library for this.
+// for some reason nobody ever thought to make a library for this.
 _TCHAR *win_argv_build(const _TCHAR *const *argv)
 {
     size_t args_max = 1024;
