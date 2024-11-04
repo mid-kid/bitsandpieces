@@ -15,7 +15,8 @@ char *relpath(const char *cwd, const char *dst)
         if (strncmp(dst_p, cwd_p, l) != 0) break;
         dst_p += l; cwd_p += l;
     }
-    // Add any necessary ../
+
+    // Figure out how many ../ to add
     int l = 0;
     if (strcmp(dst_p, cwd_p) == 0) {
         dst_p = ".";
@@ -23,10 +24,13 @@ char *relpath(const char *cwd, const char *dst)
         dst_p++;
         while (*cwd_p) if (*cwd_p++ == '/') l++;
     }
+
+    // Allocate and build final string
     int dst_p_len = strlen(dst_p) + 1;
     char *dst_m = malloc(3 * l + dst_p_len);
     if (!dst_m) return NULL;
     for (int i = 0; i < l; i++) memcpy(dst_m + 3 * i, "../", 3);
     memcpy(dst_m + 3 * l, dst_p, dst_p_len);
+
     return dst_m;
 }
