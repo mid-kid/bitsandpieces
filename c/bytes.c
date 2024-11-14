@@ -6,7 +6,7 @@
 
 uint16_t rd_u16(const unsigned char *mem)
 {
-    return mem[0] << 0 | mem[1] << 8;
+    return (uint16_t)mem[0] << 0 | (uint16_t)mem[1] << 8;
 }
 
 uint32_t rd_u32(const unsigned char *mem)
