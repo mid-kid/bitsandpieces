@@ -36,8 +36,8 @@ char *relpath(const char *cwd, const char *dst)
     if (strcmp(dst_p, cwd_p) == 0) {
         dst_p = ".";
     } else if (*dst_p == sep) {
-        dst_p++; l++;
-        while ((cwd_p = strchr(cwd_p + 1, sep))) l++;
+        dst_p++;
+        for (; (cwd_p = strchr(cwd_p, sep)); cwd_p++) l++;
     }
 
     // Allocate and build final string
