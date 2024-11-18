@@ -21,8 +21,8 @@ char *relpath(const char *cwd, const char *dst)
     if (strcmp(dst_p, cwd_p) == 0) {
         dst_p = ".";
     } else if (*dst_p == '/') {
-        dst_p++;
-        while (*cwd_p) if (*cwd_p++ == '/') l++;
+        dst_p++; l++;
+        while ((cwd_p = strchr(cwd_p + 1, '/'))) l++;
     }
 
     // Allocate and build final string
