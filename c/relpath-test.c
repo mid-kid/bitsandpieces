@@ -8,7 +8,11 @@ int main(int argc, char *argv[])
 {
     if (argc <= 1) return EXIT_FAILURE;
 
+#ifndef _WIN32
     char *pth = realpath(argv[1], NULL);
+#else
+    char *pth = _fullpath(NULL, argv[1], 0);
+#endif
     if (!pth) { perror("realpath"); return EXIT_FAILURE; }
     char *cwd = getcwd(NULL, 0);
     if (!cwd) { perror("getcwd"); return EXIT_FAILURE; }
