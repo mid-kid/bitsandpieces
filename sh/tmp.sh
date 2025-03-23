@@ -7,4 +7,4 @@ name="$(basename "$0" .sh)"
 
 tmp="$(mktemp -d -t "$name.XXXXXXXXXX")"
 trap 'rv=$?; rm -rf '"'$tmp'"'; exit $rv' EXIT
-trap 'exit $?' TERM
+trap 'exit $?' INT QUIT TERM
