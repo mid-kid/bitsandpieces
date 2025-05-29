@@ -54,6 +54,8 @@ char *relpath(const char *cwd, const char *dst)
         dst_p += l; cwd_p += l;
     }
 
+    if (!*dst_p) dst_p = ".";
+
     // Strip the final path component if it's an exact match
     if (*cwd_p == sep) {
         char *c = strchr(cwd_p + 1, sep);
@@ -66,12 +68,11 @@ char *relpath(const char *cwd, const char *dst)
 
     // Figure out how many ../ to add
     int p = 0;
-    if (strcmp(dst_p, cwd_p) == 0) {
-        dst_p = ".";
-    } else if (*dst_p == sep) {
-        dst_p++;
+    if (!*dst_p || *dst_p == sep) {
+        if (*dst_p == sep) dst_p++;
+        for (; (cwd_p = strchr(cwd_p, sep)); cwd_p++) p++;
     }
-    for (; (cwd_p = strchr(cwd_p, sep)); cwd_p++) p++;
+    if (!*dst_p && !p) dst_p = ".";
 
     // Allocate and build final string
     size_t dst_p_len = strlen(dst_p);
