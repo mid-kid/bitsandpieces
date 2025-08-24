@@ -16,7 +16,17 @@ AC_SUBST([EXTRA_CFLAGS])
 
 # Default cflags
 AS_IF([test "$GCC" = yes], [dnl
-    EXTRA_CFLAGS="$EXTRA_CFLAGS -std=gnu17 -Wall -Wextra"])
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -Wall -Wextra"])
+
+# Set compiler standard
+AC_CACHE_CHECK([whether the compiler supports -std=gnu23],
+    [ac_cv_prog_cc_gnu23], [dnl
+    save_CFLAGS="$CFLAGS"; CFLAGS="$CFLAGS -std=gnu23"
+    AC_COMPILE_IFELSE([AC_LANG_PROGRAM],
+       [ac_cv_prog_cc_gnu23=yes], [ac_cv_prog_cc_gnu23=no])
+    CFLAGS="$save_CFLAGS"])
+AS_IF([test "x$ac_cv_prog_cc_gnu23" = xyes], [dnl
+    EXTRA_CFLAGS="$EXTRA_CFLAGS -std=gnu23"])
 
 AC_CONFIG_HEADERS([autoconf.h])
 AC_CONFIG_FILES([Makefile project.pc])
