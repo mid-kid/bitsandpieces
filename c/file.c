@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 struct file *file_read(const char *name)
 {
@@ -47,7 +48,7 @@ bool file_write(const char *name, const struct file *file)
 unsigned file_lines(const struct file *file)
 {
     unsigned lines = 0;
-    const char *p = file->data;
+    const unsigned char *p = file->data;
     while (p < file->data + file->size) if (*p++ == '\n') lines++;
     while (p-- > file->data) {
         if (*p == '\n') break;
