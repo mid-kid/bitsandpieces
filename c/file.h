@@ -10,3 +10,4 @@ struct file {
 
 struct file *file_read(const char *name);
 bool file_write(const char *name, const struct file *file);
+unsigned file_lines(const struct file *file);
